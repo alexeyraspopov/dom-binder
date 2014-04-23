@@ -5,10 +5,6 @@ DOM Binder
 ## Install
 
 ```bash
-$ npm install dom-binder
-```
-
-```bash
 $ component install alexeyraspopov/dom-binder
 ```
 
