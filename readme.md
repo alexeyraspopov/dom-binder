@@ -14,7 +14,7 @@ $ bower install dom-binder
 
 ## API
 
-TBD
+	bind(element, binder)
 
 ## Usage
 
