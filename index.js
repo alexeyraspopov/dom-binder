@@ -1,3 +1,3 @@
-module.exports = function(element, binder){
+module.exports = function(element, attr, binder){
 
 };

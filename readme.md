@@ -14,7 +14,7 @@ $ bower install dom-binder
 
 ## API
 
-	bind(element, binder)
+	bind(element, attr, binder)
 
 ## Usage
 
