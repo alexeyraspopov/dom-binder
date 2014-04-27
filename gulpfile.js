@@ -9,7 +9,7 @@ var gulp = require('gulp'),
 	esnext = require('gulp-esnext');
 
 gulp.task('analysis', function(){
-	return gulp.src('*.js')
+	return gulp.src(['index.js', 'spec.js'])
 		.pipe(esnext())
 		.pipe(jshint())
 		.pipe(jshint.reporter('jshint-stylish'))
