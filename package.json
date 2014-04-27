@@ -19,6 +19,7 @@
     "browserify": "^3.44.1",
     "karma-browserify": "^0.2.0",
     "gulp-wrap-exports": "^0.2.0",
-    "gulp-rename": "^1.2.0"
+    "gulp-rename": "^1.2.0",
+    "gulp-esnext": "^0.1.0"
   }
 }
