@@ -1,27 +1,27 @@
 'use strict';
-function toRegExp(attr){
-	return new RegExp(attr.replace(/-(.)/g, (match, letter) => letter.toUpperCase()).replace(/\*/g, '(.+)'));
+
+function compose(f, g){
+	return function(){
+		return f(g.apply(this, arguments));
+	};
 }
 
-function pick(object){
-	return (key) => object[key];
+function targetValue(event){
+	return event.target.value;
 }
 
-module.exports = function(element, attr, binder){
-	// create attr regexp
-	var getNames = toRegExp(attr),
-		isCorrectName = getNames.test.bind(getNames);
+module.exports = function(node, attr, model){
+	var apply = node.setAttribute.bind(node, attr),
+		change = compose(model.write, targetValue);
 
-	// get attrs by regexp
-	Object.keys(element.dataset)
-		.filter(isCorrectName)
-		.map(pick(element.dataset))
-		.forEach((attrValue) => {
-			// what I should to do with attrValue?
-			binder.routine(element, attrValue);
-		});
+	model.subscribe(apply);
+	node.addEventListener('change', change);
+	apply(model.read());
 
-	// call bind and routine functions
-
-	// return handler
+	return {
+		remove: function(){
+			model.unsubscribe(apply);
+			node.removeEventListener('change', change);
+		}
+	};
 };
