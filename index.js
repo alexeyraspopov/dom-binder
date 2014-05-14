@@ -1,27 +1,18 @@
 'use strict';
 
-function compose(f, g){
-	return function(){
-		return f(g.apply(this, arguments));
-	};
-}
-
-function targetValue(event){
-	return event.target.value;
-}
-
 module.exports = function(node, attr, model){
 	var apply = node.setAttribute.bind(node, attr),
-		change = compose(model.write, targetValue);
+		change = function(event){ model.set(event.target.value); };
 
-	model.subscribe(apply);
-	node.addEventListener('change', change);
-	apply(model.read());
+	model.on('change', apply);
+	apply(model.get());
+
+	if (attr === 'value') node.addEventListener('change', change);
 
 	return {
 		remove: function(){
 			model.unsubscribe(apply);
-			node.removeEventListener('change', change);
+			if (attr === 'value') node.removeEventListener('change', change);
 		}
 	};
 };
