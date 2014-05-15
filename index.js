@@ -10,53 +10,24 @@ function compose(f, g){
 	};
 }
 
-function bind(node, attr, observer){
-	var update = node.setAttribute.bind(node, attr);
+var values = ['value', 'checked', 'selectedIndex'];
 
-	observer.on('change', compose(update, sanitizeValue));
-}
+function bind(node, attr, observer){
+	var isValue = values.indexOf(attr) > -1;
+
+	if(isValue){
+		var setAttribute = function(value){ node[attr] = value; };
+	}else{
+		var setAttribute = node.setAttribute.bind(attr);
+	}
+
+	observer.on('change', compose(setAttribute, sanitizeValue));
+
+	if(isValue){
+		node.addEventListener('change', function(){
+			observer.emit('change', sanitizeValue(node[attr]));
+		});
+	}
+};
 
 module.exports = bind;
-
-// ObserverConstructor :: (String -> Observer)
-// Binder :: Object { remove }
-// bind :: Node -> String -> ObserverConstructor -> Binder
-// function bind(node, attr, modelCtor, binder){
-// 	var attrValue = node.getAttribute(attr);
-
-// 	var model = modelCtor(attr, attrValue);
-
-// 	var setAttribute = node.setAttribute.bind(node, attr);
-
-// 	var handleChange = function(event){ model.set(event.target.value); };
-
-// 	model.on('change', apply);
-// 	node.addEventListener('change', handleChange);
-
-// 	setAttribute(model.get());
-
-// 	return {
-// 		remove: function(){
-// 			model.off('change', apply);
-// 			node.removeEventListener('change', handleChange);
-// 		}
-// 	};
-// }
-
-// module.exports = bind;
-// module.exports = function(node, attr, model){
-// 	var apply = node.setAttribute.bind(node, attr),
-// 		change = function(event){ model.set(event.target.value); };
-
-// 	model.on('change', apply);
-// 	apply(model.get());
-
-// 	if (attr === 'value') node.addEventListener('change', change);
-
-// 	return {
-// 		remove: function(){
-// 			model.unsubscribe(apply);
-// 			if (attr === 'value') node.removeEventListener('change', change);
-// 		}
-// 	};
-// };
