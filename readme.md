@@ -14,11 +14,11 @@ $ bower install dom-binder
 
 ## API
 
-	bind(element, attr, binder)
+	bind(element, attr, valueObserver)
 
 ## Usage
 
-TBD
+	bind(inputElement, value, new PathObserver('user.name'));
 
 ## License
 
