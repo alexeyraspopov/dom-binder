@@ -15,6 +15,15 @@ var values = ['value', 'checked', 'selectedIndex'];
 function bind(node, attr, observer){
 	var isValue = values.indexOf(attr) > -1;
 
+	switch(node.constructor){
+		case Text: break;
+		case HTMLInputElement: break;
+		case HTMLSelectElement: break;
+		case HTMLTextAreaElement: break;
+		default: break;
+	}
+	
+	
 	if(isValue){
 		var setAttribute = function(value){ node[attr] = value; };
 	}else{
