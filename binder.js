@@ -1,3 +1,5 @@
+!function(module, global){
+var exports = module.exports;
 'use strict';
 
 function sanitizeValue(value){
@@ -17,3 +19,6 @@ function bind(node, attr, observer){
 }
 
 module.exports = bind;
+
+global.bind = module.exports;
+}({ exports: {} }, function(){ return this; }());
