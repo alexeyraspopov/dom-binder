@@ -14,11 +14,11 @@ $ bower install dom-binder
 
 ## API
 
-	bind(element, attr, valueObserver)
+	bind(node, attr, valueObserver)
 
 ## Usage
 
-	bind(inputElement, value, new PathObserver('user.name'));
+	bind(inputElement, 'value', new PathObserver(model, 'user.name'));
 
 ## Bindings
 
