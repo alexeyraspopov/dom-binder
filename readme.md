@@ -14,7 +14,7 @@ $ bower install dom-binder
 
 ## API
 
-	bind(node, attr, valueObserver)
+	bind(node, attr, observer)
 
 ## Usage
 
