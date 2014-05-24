@@ -6,6 +6,12 @@ function compose(f, g){
 	};
 }
 
+function attributeSetter(node, attr){
+	return function(value){
+		node.setAttribute(attr, value);
+	};
+}
+
 function identity(value){
 	return value;
 }
@@ -25,7 +31,7 @@ function valueTransform(attr){
 function bind(node, attr, observer){
 	var setAttribute, sanitizeValue;
 
-	setAttribute = node.setAttribute.bind(node, attr);
+	setAttribute = attributeSetter(node, attr);
 	sanitizeValue = compose(valueTransform(attr), sanitize);
 
 	observer.subscribe(compose(setAttribute, sanitizeValue));
