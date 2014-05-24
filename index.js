@@ -1,8 +1,8 @@
 'use strict';
 
 function compose(f, g){
-	return function(){
-		return f(g.apply(this, arguments));
+	return function(a){
+		return f(g(a));
 	};
 }
 
@@ -10,28 +10,24 @@ function identity(value){
 	return value;
 }
 
-function sanitizeValue(value){
+function sanitize(value){
 	return value == null ? '' : value;
 }
 
 function valueTransform(attr){
-	switch(attr){
-		case 'checked':
-			return Boolean;
-		case 'value':
-			return String;
-		default:
-			return identity;
-	}
+	return {
+		'checked': Boolean,
+		'value': String
+	}[attr] || identity;
 }
 
 function bind(node, attr, observer){
-	var setAttribute, sanitize;
+	var setAttribute, sanitizeValue;
 
 	setAttribute = node.setAttribute.bind(node, attr);
-	sanitize = compose(valueTransform(attr), sanitizeValue);
+	sanitizeValue = compose(valueTransform(attr), sanitize);
 
-	observer.subscribe(compose(setAttribute, sanitize));
+	observer.subscribe(compose(setAttribute, sanitizeValue));
 }
 
 module.exports = bind;
