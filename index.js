@@ -17,7 +17,8 @@ function sanitize(value){
 function valueTransform(attr){
 	return {
 		'checked': Boolean,
-		'value': String
+		'value': String,
+		'selectedIndex': Number
 	}[attr] || identity;
 }
 

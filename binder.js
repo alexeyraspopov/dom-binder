@@ -2,18 +2,33 @@
 var exports = module.exports;
 'use strict';
 
-function sanitizeValue(value){
-	return value == null ? '' : value;
-}
-
 function compose(f, g){
-	return function(){
-		return f(g.apply(this, arguments));
+	return function(a){
+		return f(g(a));
 	};
 }
 
+function identity(value){
+	return value;
+}
+
+function sanitize(value){
+	return value == null ? '' : value;
+}
+
+function valueTransform(attr){
+	return {
+		'checked': Boolean,
+		'value': String,
+		'selectedIndex': Number
+	}[attr] || identity;
+}
+
 function bind(node, attr, observer){
-	var setAttribute = node.setAttribute.bind(node, attr);
+	var setAttribute, sanitizeValue;
+
+	setAttribute = node.setAttribute.bind(node, attr);
+	sanitizeValue = compose(valueTransform(attr), sanitize);
 
 	observer.subscribe(compose(setAttribute, sanitizeValue));
 }
