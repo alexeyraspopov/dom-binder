@@ -22,9 +22,9 @@ function sanitize(value){
 
 function valueTransform(attr){
 	return {
-		'checked': Boolean,
-		'value': String,
-		'selectedIndex': Number
+		checked: Boolean,
+		value: String,
+		selectedIndex: Number
 	}[attr] || identity;
 }
 
