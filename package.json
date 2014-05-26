@@ -1,6 +1,6 @@
 {
   "name": "dom-binder",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "DOM Binder",
   "license": "MIT",
   "main": "index.js",
