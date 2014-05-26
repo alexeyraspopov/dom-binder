@@ -8,6 +8,12 @@ function compose(f, g){
 	};
 }
 
+function attributeSetter(node, attr){
+	return function(value){
+		node.setAttribute(attr, value);
+	};
+}
+
 function identity(value){
 	return value;
 }
@@ -18,16 +24,16 @@ function sanitize(value){
 
 function valueTransform(attr){
 	return {
-		'checked': Boolean,
-		'value': String,
-		'selectedIndex': Number
+		checked: Boolean,
+		value: String,
+		selectedIndex: Number
 	}[attr] || identity;
 }
 
 function bind(node, attr, observer){
 	var setAttribute, sanitizeValue;
 
-	setAttribute = node.setAttribute.bind(node, attr);
+	setAttribute = attributeSetter(node, attr);
 	sanitizeValue = compose(valueTransform(attr), sanitize);
 
 	observer.subscribe(compose(setAttribute, sanitizeValue));
