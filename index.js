@@ -7,9 +7,21 @@ function compose(f, g){
 }
 
 function attributeSetter(node, attr){
-	return function(value){
+	var setProperty, setAttribute;
+
+	setProperty = function(value){
+		node[attr] = value;
+	};
+
+	setAttribute = function(value){
 		node.setAttribute(attr, value);
 	};
+
+	return {
+		checked: setProperty,
+		value: setProperty,
+		selectedIndex: setProperty
+	}[attr] || setAttribute;
 }
 
 function identity(value){
