@@ -22,16 +22,13 @@ $ bower install dom-binder
 
 ## Bindings
 
-Value binding in some cases (with two-way binding):
+Value can be converted in some cases and written like element's property:
 
-| Node type           | Attr          | Binding        |
-|---------------------|---------------|----------------|
-| Text                | textContent   | String(value)  |
-| HTMLInputElement    | value         | String(value)  |
-| HTMLInputElement    | checked       | Boolean(value) |
-| HTMLTextAreaElement | value         | String(value)  |
-| HTMLSelectElement   | value         | Number(value)  |
-| HTMLSelectElement   | selectedIndex | Number(value)  |
+| Attr          | Binding        |
+|---------------|----------------|
+| value         | String(value)  |
+| checked       | Boolean(value) |
+| selectedIndex | Number(value)  |
 
 Else - binding by attribute.
 
