@@ -1,5 +1,7 @@
 'use strict';
 
+var properties = ['value', 'checked', 'innerHTML', 'textContent', 'selectedIndex'];
+
 function compose(f, g){
 	return function(a){
 		return f(g(a));
@@ -18,7 +20,7 @@ function attributeSetter(node, attr){
 	var setProperty = function(value){ node[attr] = value; },
 		setAttribute = function(value){ node.setAttribute(attr, value);	};
 
-	return ['value', 'checked', 'innerHTML', 'textContent', 'selectedIndex'].indexOf(attr) > -1 ? setProperty : setAttribute;
+	return properties.indexOf(attr) > -1 ? setProperty : setAttribute;
 }
 
 function valueTransform(attr){
