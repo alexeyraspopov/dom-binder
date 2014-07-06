@@ -10,7 +10,7 @@ function identity(value){
 	return value;
 }
 
-function sanitize(value){
+function sanitizeValue(value){
 	return value == null ? '' : value;
 }
 
@@ -18,7 +18,7 @@ function attributeSetter(node, attr){
 	var setProperty = function(value){ node[attr] = value; },
 		setAttribute = function(value){ node.setAttribute(attr, value);	};
 
-	return ['checked', 'value', 'selectedIndex'].indexOf(attr) ? setProperty : setAttribute;
+	return ['checked', 'value', 'selectedIndex'].indexOf(attr) > -1 ? setProperty : setAttribute;
 }
 
 function valueTransform(attr){
@@ -30,10 +30,10 @@ function valueTransform(attr){
 }
 
 function bind(node, attr, observer){
-	var setAttribute = attributeSetter(node, attr),
-		sanitizeValue = compose(valueTransform(attr), sanitize);
+	var write = attributeSetter(node, attr),
+		transform = compose(valueTransform(attr), sanitizeValue);
 
-	observer.subscribe(compose(setAttribute, sanitizeValue));
+	observer.subscribe(compose(write, transform));
 }
 
 module.exports = bind;
