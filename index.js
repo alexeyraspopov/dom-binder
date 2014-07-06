@@ -35,7 +35,7 @@ function bind(node, attr, observer){
 	var write = attributeSetter(node, attr),
 		transform = compose(valueTransform(attr), sanitizeValue);
 
-	observer.subscribe(compose(write, transform));
+	return observer.subscribe(compose(write, transform));
 }
 
 module.exports = bind;
