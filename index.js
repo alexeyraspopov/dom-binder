@@ -18,13 +18,14 @@ function attributeSetter(node, attr){
 	var setProperty = function(value){ node[attr] = value; },
 		setAttribute = function(value){ node.setAttribute(attr, value);	};
 
-	return ['checked', 'value', 'selectedIndex'].indexOf(attr) > -1 ? setProperty : setAttribute;
+	return ['checked', 'value', 'textContent', 'selectedIndex'].indexOf(attr) > -1 ? setProperty : setAttribute;
 }
 
 function valueTransform(attr){
 	return {
 		checked: Boolean,
 		value: String,
+		textContent: String,
 		selectedIndex: Number
 	}[attr] || identity;
 }
