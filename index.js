@@ -33,11 +33,16 @@ function valueTransform(attr){
 	}[attr] || identity;
 }
 
-function bind(node, attr, observer){
+function writer(node, attr){
 	var write = attributeSetter(node, attr),
 		transform = compose(valueTransform(attr), sanitizeValue);
 
-	return observer.subscribe(compose(write, transform));
+	return compose(write, transform);
+}
+
+function bind(node, attr, observer){
+	return observer.subscribe(writer(node, attr));
 }
 
 module.exports = bind;
+bind.writer = writer;
