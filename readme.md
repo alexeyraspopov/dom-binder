@@ -28,6 +28,8 @@ Value can be converted in some cases and written like element's property:
 |---------------|----------------|
 | value         | String(value)  |
 | checked       | Boolean(value) |
+| innerHTML     | String(value)  |
+| textContent   | String(value)  |
 | selectedIndex | Number(value)  |
 
 Else - binding by attribute.
