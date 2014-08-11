@@ -16,6 +16,8 @@ $ bower install dom-binder
 
 	bind(node, attr, observer)
 
+`observer` should provide method `subscribe` which pass a function and call it immediately with latest value.
+
 ## Usage
 
 	bind(inputElement, 'value', new PathObserver(model, 'user.name'));
