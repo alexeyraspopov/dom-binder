@@ -13,7 +13,7 @@ function identity(value){
 }
 
 function sanitizeValue(value){
-	return value == null ? '' : value;
+	return typeof value === 'undefined' || value === null ? '' : value;
 }
 
 function attributeSetter(node, attr){
